@@ -1,11 +1,16 @@
-import React from "react";
+import React,{useContext} from "react";
 import { IoIosSearch } from "react-icons/io";
 import { FiShoppingCart } from "react-icons/fi";
 import { CiLocationOn } from "react-icons/ci";
 import "./header.css";
 import Lowerheder from "./Lowerheder";
 import { Link } from "react-router-dom";
+import { Datacontext } from "../DataProvider/DataProvider";
 function Header() {
+
+  const {state:{basket}, dispatch} = useContext(Datacontext);
+
+    console.log(basket.length);
   return (
     <>
       <div className="header">
@@ -66,11 +71,11 @@ function Header() {
 
           <Link to="/cart" className="cart-link">
             <FiShoppingCart className="cart-icon" />
-            <span className="cart-count">0</span>
+            <span className="cart-count">{basket.length}</span>
           </Link>
         </div>
       </div>
-      <Lowerheder/>
+      <Lowerheder />
     </>
   );
 }

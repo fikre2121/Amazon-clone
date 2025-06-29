@@ -1,8 +1,8 @@
 import React from 'react'
-import classes from "./productditail.module.css"
+import classes from "./categoryditail.module.css"
 import Rating from "@mui/material/Rating";
 import Currency from "../../Components/Currencyformater/Currency";
- function ProductDitail({product}) {
+ function CategoryDitail({product}) {
 
   const { image, title, id, rating, price } = product;
 
@@ -29,4 +29,4 @@ import Currency from "../../Components/Currencyformater/Currency";
     </div>
   );
 }
-export default  ProductDitail
+export default  CategoryDitail
