@@ -28,7 +28,7 @@ function Productdetaile() {
   return (
     <Layout>
       <div className={classes.productlist_container}>
-        <ProductDcard product={Pdetaile} flex={true} />
+        <ProductDcard product={Pdetaile} flex={true} renderAdd={true} />
       </div>
     </Layout>
   );

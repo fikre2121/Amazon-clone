@@ -10,7 +10,7 @@ function Product({ data }) {
   const { image, title, id, rating, price } = data;
 
   const {state, dispatch} = useContext(Datacontext);
-  console.log(state);
+  
   const addTtocart = () => {
     dispatch({
       type: type.ADD_TOA_BASKET,
