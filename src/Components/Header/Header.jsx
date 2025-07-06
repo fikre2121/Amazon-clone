@@ -6,11 +6,14 @@ import "./header.css";
 import Lowerheder from "./Lowerheder";
 import { Link } from "react-router-dom";
 import { Datacontext } from "../DataProvider/DataProvider";
+
 function Header() {
 
   const {state:{basket}, dispatch} = useContext(Datacontext);
+const totalItem=basket?.reduce((amount,item)=>{
+return item.amount+amount
 
-    console.log(basket.length);
+},0)
   return (
   
     < section className="fix_header">
@@ -72,7 +75,7 @@ function Header() {
 
           <Link to="/cart" className="cart-link">
             <FiShoppingCart className="cart-icon" />
-            <span className="cart-count">{basket.length}</span>
+            <span className="cart-count">{totalItem}</span>
           </Link>
         </div>
       </div>
