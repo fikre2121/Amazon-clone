@@ -9,7 +9,7 @@ createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <StrictMode>
 
-      <DataProvider reducer={reducer} initialstate={initialstate}>
+      <DataProvider>
         <App />
       </DataProvider>
 

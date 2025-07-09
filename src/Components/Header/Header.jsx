@@ -62,7 +62,7 @@ return item.amount+amount
           </div>
 
           <div className="account-signin">
-            <Link to="#" className="account-link">
+            <Link to="/auth" className="account-link">
               <p className="signin-text">Hello, sign in</p>
               <span className="account-lists">Account & Lists</span>
             </Link>
