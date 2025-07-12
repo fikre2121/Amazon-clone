@@ -1,4 +1,4 @@
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { FiShoppingCart } from "react-icons/fi";
 import { CiLocationOn } from "react-icons/ci";
@@ -6,17 +6,17 @@ import "./header.css";
 import Lowerheder from "./Lowerheder";
 import { Link } from "react-router-dom";
 import { Datacontext } from "../DataProvider/DataProvider";
-
+import {auth} from "../../Utility/Firebase"
 function Header() {
-
-  const {state:{basket}, dispatch} = useContext(Datacontext);
-const totalItem=basket?.reduce((amount,item)=>{
-return item.amount+amount
-
-},0)
+  const {
+    state: { basket, user },
+    dispatch,
+  } = useContext(Datacontext);
+  const totalItem = basket?.reduce((amount, item) => {
+    return item.amount + amount;
+  }, 0);
   return (
-  
-    < section className="fix_header">
+    <section className="fix_header">
       <div className="header">
         <div className="header-left">
           <Link to="/" className="header-logo-link">
@@ -45,7 +45,7 @@ return item.amount+amount
             placeholder="Search Amazon"
             className="search-input"
           />
-          <IoIosSearch className="search-icon" />
+          <IoIosSearch size={""} className="search-icon" />
         </div>
 
         {/* right side */}
@@ -62,9 +62,20 @@ return item.amount+amount
           </div>
 
           <div className="account-signin">
-            <Link to="/auth" className="account-link">
-              <p className="signin-text">Hello, sign in</p>
-              <span className="account-lists">Account & Lists</span>
+            <Link to={!user && "/auth"} className="account-link">
+              <div>
+                {user ? (
+                  <>
+                    <p>Hello {user.email?.split("@")[0]}</p>
+                    <span onClick={()=>auth.signOut()}>Sign Out</span>
+                  </>
+                ) : (
+                  <>
+                    <p>Hello , Sign in</p>
+                    <span className="account-lists">Account & Lists</span>
+                  </>
+                )}
+              </div>
             </Link>
           </div>
 
@@ -80,7 +91,6 @@ return item.amount+amount
         </div>
       </div>
       <Lowerheder />
-    
     </section>
   );
 }
