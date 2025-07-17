@@ -7,7 +7,7 @@ import { Datacontext } from "../../DataProvider/DataProvider";
 import { type } from "../../../Utility/Action.type";
 
 function Product({ data }) {
-  const { image, title, id, rating, price } = data;
+  const { image, title, id, rating, price, } = data;
 
   const {state, dispatch} = useContext(Datacontext);
   
@@ -33,15 +33,18 @@ function Product({ data }) {
         <h3>{title}</h3>
         <div className={classes.rating}>
           {/* rating */}
-          <Rating value={rating.rate} precision={0.1} />
+          <Rating value={rating?.rate || 0} precision={0.1} />
           {/* count */}
-          <small>{rating.count}</small>
+          <small>{rating?.count || 0}</small>
         </div>
         <div>
           {/* price */}
           <Currency amount={price} />
         </div>
-        <button  onClick ={addTtocart}className={classes.button}> add to cart</button>
+        <button onClick={addTtocart} className={classes.button}>
+          {" "}
+          add to cart
+        </button>
       </div>
     </div>
   );

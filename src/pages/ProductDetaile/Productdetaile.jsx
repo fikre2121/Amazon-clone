@@ -4,8 +4,8 @@ import { productUrl } from "../../Components/Api/endpoints";
 import Layout from "../../Components/Layout/Layout";
 import axios from "axios";
 import classes from "../Results/result.module.css"
+import Product from "../../Components/Products/Product/Product";
 // import Loader from "../../Components/Loader/Loader";
-import ProductDcard from "./ProductDcard/ProductDcard";
 function Productdetaile() {
   const [Pdetaile, setPdetaile] = useState([]);
   const { productId } = useParams();
@@ -28,7 +28,7 @@ function Productdetaile() {
   return (
     <Layout>
       <div className={classes.productlist_container}>
-        <ProductDcard product={Pdetaile} flex={true} renderAdd={true} />
+        <Product data={Pdetaile} flex={true} renderAdd={true} />
       </div>
     </Layout>
   );

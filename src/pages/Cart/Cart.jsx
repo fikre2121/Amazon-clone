@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../../Components/Layout/Layout";
 import { Datacontext } from "../../Components/DataProvider/DataProvider";
 import { useContext } from "react";
-import ProductDcard from "../ProductDetaile/ProductDcard/ProductDcard";
+import Product from "../../Components/Products/Product/Product";
 import { Link } from "react-router-dom";
 import Currency from "../../Components/Currencyformater/Currency";
 import clases from "./cart.module.css";
@@ -44,12 +44,11 @@ function Cart() {
             ) : (
               basket?.map((item) => {
                 return (
-                  <section className={clases.cart_product}>
-                    <ProductDcard
-                      product={item}
+                  <section key={item.id} className={clases.cart_product}>
+                    <Product
+                      data={item}
                       renderDesc={item}
                       flex={true}
-                      key={item.id}
                       renderAdd={false}
                     />
                     <div className={clases.btn_container}>
@@ -57,7 +56,7 @@ function Cart() {
                         className={clases.btn}
                         onClick={() => increment(item)}
                       >
-                        <IoIosArrowDown size={20}/>
+                        <IoIosArrowDown size={20} />
                       </button>
                       <span>{item.amount}</span>
                       <button
@@ -82,7 +81,7 @@ function Cart() {
                 <input type="checkbox"></input>
                 <small>this order contains a gift</small>
               </span>
-              <Link to="/payments"> cotinue to checkout</Link>
+              <Link to="/payment"> cotinue to checkout</Link>
             </div>
           )}
         </section>
