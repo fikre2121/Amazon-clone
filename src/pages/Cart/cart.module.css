@@ -1,16 +1,14 @@
-.container{
+/* .container{
     display: flex;
     gap: 30px;
     margin-top: 20px;
+    
 }
-.container img{
-width: 100% !important;
 
-}
 .cart_container{
     padding: 20px;
 }
-.cart_container3,
+.cart_container h3,
 .cart_container h2{
     padding: 10px;
 }
@@ -83,4 +81,118 @@ width: 100% !important;
       .subtotal {
         order: 1;
       }
+  } */
+   .container {
+  display: flex;
+  gap: 30px;
+  margin: 20px auto;
+  /* max-width: 1200px; */
+  padding: 0 40px;
+}
+
+.cart_container {
+  padding: 10px;
+  flex: 2;
+}
+
+.cart_container h3,
+.cart_container h2 {
+  padding: 10px 0;
+}
+
+.cart_container hr {
+  margin: 10px 0;
+}
+
+.cart_product {
+  display: flex;
+  gap: 10px;
+}
+
+.btn_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn {
+  padding: 5px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+}
+
+.btn:hover svg {
+  background-color: #FAAF00;
+}
+
+/* Subtotal */
+.subtotal {
+  flex: 1;
+  background-color: rgb(242, 241, 241);
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  min-width: 300px;
+}
+
+.subtotal a {
+  width: 100%;
+  background-color: var(--primart-color);
+  border: none;
+  color: black;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.subtotal a:hover {
+  background-color: var(--primary-color-shade);
+}
+
+.subtotal > div,
+.subtotal span {
+  display: flex;
+  gap: 20px;
+}
+
+
+
+
+/* Responsive layout */
+@media (max-width: 968px) {
+  .container {
+    flex-direction: column;
   }
+
+  .cart_container {
+    order: 2;
+  }
+
+  .subtotal {
+    order: 1;
+    width: 100%;
+    min-width: auto;
+  }
+
+  .product_flexd {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .product_image {
+    /* width: 100%; */
+    /* max-width: 300px; */
+  }
+}

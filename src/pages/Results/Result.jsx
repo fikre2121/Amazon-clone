@@ -40,7 +40,11 @@ function Result() {
         ) : (
           <div className={classes.productlist_container}>
             {singleproduct.map((product) => (
-              <CategoryDitail product={product} key={product.id} />
+              <CategoryDitail
+                product={product}
+                key={product.id}
+                renderAdd={true}
+              />
             ))}
           </div>
         )}

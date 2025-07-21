@@ -47,7 +47,7 @@ function Cart() {
                   <section key={item.id} className={clases.cart_product}>
                     <Product
                       data={item}
-                      renderDesc={item}
+                      renderDesc={true}
                       flex={true}
                       renderAdd={false}
                     />

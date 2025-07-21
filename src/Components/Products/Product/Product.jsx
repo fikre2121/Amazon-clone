@@ -6,11 +6,11 @@ import { Link } from "react-router-dom";
 import { Datacontext } from "../../DataProvider/DataProvider";
 import { type } from "../../../Utility/Action.type";
 
-function Product({ data }) {
-  const { image, title, id, rating, price, } = data;
+function Product({ data, flex, renderDesc,renderAdd }) {
+  const { image, title, id, rating, price, description } = data;
 
-  const {state, dispatch} = useContext(Datacontext);
-  
+  const { state, dispatch } = useContext(Datacontext);
+
   const addTtocart = () => {
     dispatch({
       type: type.ADD_TOA_BASKET,
@@ -20,17 +20,24 @@ function Product({ data }) {
         id,
         rating,
         price,
+        description,
       },
     });
   };
 
   return (
-    <div className={`${classes.card_container}`}>
+    <div
+      className={`${classes.card_container} ${
+        flex ? classes.product_flexd : ""
+      }`}
+    >
       <Link to={`/products/${id}`}>
         <img src={image} alt="" />
       </Link>
-      <div>
+
+      <div className={classes.product_info}>
         <h3>{title}</h3>
+      {renderDesc && <div style={{maxWidth:"750px"}}>{description}</div>}
         <div className={classes.rating}>
           {/* rating */}
           <Rating value={rating?.rate || 0} precision={0.1} />
@@ -41,10 +48,11 @@ function Product({ data }) {
           {/* price */}
           <Currency amount={price} />
         </div>
-        <button onClick={addTtocart} className={classes.button}>
-          {" "}
+        
+        { renderAdd && <button onClick={addTtocart} className={classes.button}>
           add to cart
-        </button>
+        </button>}
+        
       </div>
     </div>
   );

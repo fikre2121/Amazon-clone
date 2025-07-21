@@ -30,7 +30,7 @@ function Productlist() {
       ) : (
         <div className={classes.productlist_container}>
           {product.map((getresulte) => (
-            <Product key={getresulte.id} data={getresulte} />
+            <Product key={getresulte.id} data={getresulte} renderAdd ={true}/>
           ))}
         </div>
       )}
