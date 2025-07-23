@@ -36,9 +36,9 @@ function Payment() {
         {/* payment method */}
         <section className={classes.payment}>
           {/* address */}
-          <div>
+          <div className={classes.container}>
             <h3>Delivery Address</h3>
-            <div>
+            <div className={classes.addressLines}>
               <div>fike@email.com</div>
               <div>123 React Lane</div>
               <div> Addis,IL</div>
@@ -73,7 +73,7 @@ function Payment() {
                 {/* price */}
                 <div className={classes.payment_price}>
                   <div>
-                    <span style={{display:"flex",gap:"10px"}}>
+                    <span style={{ display: "flex", gap: "10px" }}>
                       <p>Total Order |</p>
                       <Currency amount={total} />
                     </span>
