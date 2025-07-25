@@ -7,15 +7,16 @@ import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js";
 import Currency from "../../Components/Currencyformater/Currency";
 import { axiosInstance } from "../../Components/Api/axios";
 import ClipLoader from "react-spinners/ClipLoader";
-import {db} from "../../Utility/Firebase"
+import { db } from "../../Utility/Firebase";
 import { doc, setDoc } from "firebase/firestore";
-
+import { getAuth } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 function Payment() {
   const { state, dispatch } = useContext(Datacontext);
   const { basket } = state;
   const [cardError, setCardError] = useState(null);
   const [processing, setProcessing] = useState(false);
-
+  const navigate = useNavigate();
   // total items
   const totalItem = basket?.reduce((amount, item) => {
     return item.amount + amount;
@@ -33,11 +34,23 @@ function Payment() {
     // console.log(e);
     e?.error?.message ? setCardError(e?.error?.message) : setCardError("");
   };
+
   const handlePayment = async (e) => {
-setProcessing(true)
+    setProcessing(true);
     e.preventDefault();
     let clientSecret;
-    //1. backend|| functions-->contact to teh client secreate
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+    //1. backend|| functions-->contact to teh client
+    // secreate
+    if (!user) {
+      console.error("No user is logged in");
+      setCardError("You must be logged in to make a payment.");
+      setProcessing(false);
+      return;
+    }
+
     try {
       const response = await axiosInstance({
         method: "POST",
@@ -46,28 +59,26 @@ setProcessing(true)
       clientSecret = response.data?.clientSecret;
 
       // 2.client side confirmation
-      const {paymentIntent} = await stripe.confirmCardPayment(clientSecret, {
+
+      const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
         },
       });
-     
 
       // .3 after the confirmation-->order firestore database save ,clear basket
-await setDoc(doc(db, "users", user.uid, "orders", paymentIntent.id), {
-  basket: basket,
-  amount: paymentIntent.amount,
-  created: paymentIntent.created,
-});
+      await setDoc(doc(db, "users", user.uid, "orders", paymentIntent.id), {
+        basket: basket,
+        amount: paymentIntent.amount,
+        created: paymentIntent.created,
+      });
 
-
-      setProcessing(false)
+      setProcessing(false);
+      navigate("/orders", { state: { msg: "You have placed a new order!" } });
     } catch (error) {
       console.log(error.message);
-      setProcessing(false)
+      setProcessing(false);
     }
-
-    
   };
   return (
     <div>
@@ -97,6 +108,7 @@ await setDoc(doc(db, "users", user.uid, "orders", paymentIntent.id), {
               ))}
             </div>
           </div>
+
           <hr />
 
           {/* card form  */}
@@ -124,11 +136,10 @@ await setDoc(doc(db, "users", user.uid, "orders", paymentIntent.id), {
                   <button type="submit">
                     {" "}
                     {processing ? (
-                      
                       <div className={classes.loader}>
                         <ClipLoader color="gray" size={15} />
-                      
-                      <p>please wait......</p>
+
+                        <p>please wait......</p>
                       </div>
                     ) : (
                       "pay now"
