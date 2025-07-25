@@ -228,10 +228,13 @@
 .menubare {
   display: flex;
 }
-@media (max-width: 576px) {
+@media (max-width: 768px) {
   .header {
     display: flex;
     flex-direction: column;
     height: auto;
+  }
+  .header-search{
+    width: 100% !important;
   }
 }

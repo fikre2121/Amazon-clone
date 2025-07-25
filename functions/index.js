@@ -26,7 +26,7 @@ res.status(200).json({
 
 app.post("/payment/create",async(req,res)=>{
 
-const total=req.query.total
+const total = parseInt(req.query.total);
 
 if(total>0){
 const paymentIntent=await stripe.paymentIntents.create({
@@ -34,7 +34,7 @@ const paymentIntent=await stripe.paymentIntents.create({
     currency:"usd"
 })
 console.log(paymentIntent)
-res.status(201).json({clientsecrate : paymentIntent.client_secret,});
+res.status(201).json({ clientSecret: paymentIntent.client_secret });
 } else{
  res.status(403).json({
     
