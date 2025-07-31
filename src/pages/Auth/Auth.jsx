@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import clases from "./auth.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { auth } from "../../Utility/Firebase";
 import {
   signInWithEmailAndPassword,
@@ -13,7 +13,9 @@ function Auth() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const navigate= useNavigate()
+  const navigate = useNavigate();
+  const navStateData = useLocation();
+  console.log(navStateData);
   const [loading, setLoading] = useState({
     signIn: false,
     signUp: false,
@@ -21,7 +23,6 @@ function Auth() {
   const { state, dispatch } = useContext(Datacontext);
   const user = state.user;
 
-  
   console.log(user);
   const authHandler = (e) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ function Auth() {
             user: userInfo.user,
           });
           setLoading({ ...loading, signIn: false });
-          navigate("/")
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           setError(err.message);
@@ -52,7 +53,7 @@ function Auth() {
             user: userInfo.user,
           });
           setLoading({ ...loading, signUp: false });
-          navigate("/");
+          navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err) => {
           setError(err.message);
@@ -72,6 +73,19 @@ function Auth() {
       {/* form */}
       <div className={clases.login_container}>
         <h1>Sign in</h1>
+        {navStateData.state?.msg && (
+          <small
+            style={{
+              padding: "5px",
+              textAlign: "center",
+              color: "red",
+              fontWeight: "bold",
+            }}
+          >
+            {navStateData.state.msg}
+          </small>
+        )}
+
         <form action="">
           <div>
             <label htmlFor="email">Email</label>

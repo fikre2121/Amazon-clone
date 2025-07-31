@@ -11,7 +11,7 @@ import { CheckoutProvider } from "@stripe/react-stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
 import { loadStripe } from "@stripe/stripe-js";
-
+import Routingprotected from "./Components/Routingprotected/Routingprotected";
 const stripePromise = loadStripe(
   "pk_test_51Rl2P304SY1VsE80fNDJEmIplYgE20F8E9vCpsnhU08KSGbHuz5QpguUqGWJAIO09f2Xv0uKoBB8TmXkAJPenCVD00c4MhjeE6"
 );
@@ -24,9 +24,11 @@ function Routering() {
         <Route
           path="/payment"
           element={
-            <Elements stripe={stripePromise}>
-              <Payment />
-            </Elements>
+            <Routingprotected msg={"you must log in to pay"} redirect={"/payment"}>
+              <Elements stripe={stripePromise}>
+                <Payment />
+              </Elements>
+            </Routingprotected>
           }
         />
         <Route path="/orders" element={<Order />} />
