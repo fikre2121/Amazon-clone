@@ -31,7 +31,7 @@ function Routering() {
             </Routingprotected>
           }
         />
-        <Route path="/orders" element={<Order />} />
+        <Route path="/orders" element={<Order/>} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/category/:categoryName" element={<Result />} />
 

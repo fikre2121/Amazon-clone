@@ -72,7 +72,9 @@ function Payment() {
         amount: paymentIntent.amount,
         created: paymentIntent.created,
       });
-
+      dispatch({
+        type: "EMPTY_BASKET",
+      });
       setProcessing(false);
       navigate("/orders", { state: { msg: "You have placed a new order!" } });
     } catch (error) {

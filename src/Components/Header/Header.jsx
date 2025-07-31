@@ -67,7 +67,7 @@ function Header() {
                 {user ? (
                   <>
                     <p>Hello {user.email?.split("@")[0]}</p>
-                    <span onClick={()=>auth.signOut()}>Sign Out</span>
+                    <span onClick={() => auth.signOut()}>Sign Out</span>
                   </>
                 ) : (
                   <>
@@ -79,7 +79,7 @@ function Header() {
             </Link>
           </div>
 
-          <Link to="/order" className="orders-link">
+          <Link to="/orders" className="orders-link">
             <p className="orders-text">Returns</p>
             <span className="orders-span">& Orders</span>
           </Link>
